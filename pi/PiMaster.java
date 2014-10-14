@@ -17,9 +17,11 @@ public class PiMaster
 	
 	Pi[] slave = new  Pi[nbSlaves];
 	Registry registry = LocateRegistry.getRegistry(args[0]); // machine serveur
-	for (int i = 0; i < nbSlaves; i++)
-	{	 
-		slave[i] = (Pi) registry.lookup(args[i]);
+	System.out.println("Number of slaves :" + nbSlaves);
+	for (int i = 1; i <= nbSlaves; i++)
+	{	
+		slave[i-1] = (Pi) registry.lookup(args[i]);
+		System.out.println("Adding for slave:" + args[i]);
 	}
 	// appel de méthode à distance
 	Set<PiTask> tasks = new HashSet<PiTask>();

@@ -29,11 +29,15 @@ public class PiMaster
 		for (int i=0;  i<nbSlaves; i++)
 		{
 			tasks.add(new PiTask(completed+i, slave[i]));
-
 		}
 		Iterator<PiTask> iter = tasks.iterator();
 		while (iter.hasNext()) {
 		  iter.next().start();
+		}
+
+		iter = tasks.iterator();
+		while (iter.hasNext()) {
+		  iter.next().join();
 		}
 		
 		iter = tasks.iterator();

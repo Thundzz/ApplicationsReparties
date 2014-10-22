@@ -23,10 +23,11 @@ public class BankImpl extends BankPOA
 	}
 	
 	public Account create (){
+		Account accountRef = null;
 		try{
 			AccountImpl a = new AccountImpl();
 			org.omg.CORBA.Object objRef = rootpoa.servant_to_reference(a);
-			Account accountRef = AccountHelper.narrow(objRef);
+			accountRef = AccountHelper.narrow(objRef);
 			accounts.add(accountRef);
 		}
 		catch(Exception e){

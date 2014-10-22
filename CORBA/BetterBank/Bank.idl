@@ -1,0 +1,38 @@
+/*SERVEUR*/
+interface Account
+{
+	void deposit(in unsigned long amount );
+	void withdraw(in unsigned long amount );
+	long balance();
+};
+
+/*SERVEUR et CLIENT*/
+interface Bank
+{
+	Account create ();
+	void destroy(in Account a);
+	void logIn();
+};
+
+
+/*SERVEUR*/
+interface Interbank
+{
+	void fullfill(BankTransaction tr);
+};
+
+/*SERVEUR*/
+interface BankTransaction
+{
+};
+
+
+/*CLIENT*/
+interface BankCustomer
+{
+	unsigned long open(in Bank b);
+	void deposit(in unsigned long amount, in Bank b, in unsigned long bankAccount);
+	void withdraw(in unsigned long amount, in Bank b, in unsigned long bankAccount);
+	void transfer(in double amount, in Bank A,in  unsigned long accountA ,in  Bank b,in  unsigned long accountB);
+	long balance(in Bank b, in unsigned long bankAccount);
+};

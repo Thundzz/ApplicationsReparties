@@ -1,7 +1,8 @@
 all:
 	javac *.java
 
-
+idl:
+	idlj -fall Bank.idl
 
 globserv:
 	tnameserv -ORBInitialPort 2810

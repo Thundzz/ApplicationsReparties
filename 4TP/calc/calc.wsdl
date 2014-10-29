@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="calc"
+ targetNamespace="http://dept-info.labri.fr/~denis/calc.wsdl"
+ xmlns:tns="http://dept-info.labri.fr/~denis/calc.wsdl"
+ xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+ xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns:calc="http://dept-info.labri.fr/~denis/calc.wsdl"
+ xmlns:SOAP="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:HTTP="http://schemas.xmlsoap.org/wsdl/http/"
+ xmlns:MIME="http://schemas.xmlsoap.org/wsdl/mime/"
+ xmlns:DIME="http://schemas.xmlsoap.org/ws/2002/04/dime/wsdl/"
+ xmlns:WSDL="http://schemas.xmlsoap.org/wsdl/"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+<types>
+
+ <schema targetNamespace="http://dept-info.labri.fr/~denis/calc.wsdl"
+  xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"
+  xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:calc="http://dept-info.labri.fr/~denis/calc.wsdl"
+  xmlns="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="unqualified"
+  attributeFormDefault="unqualified">
+  <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+  <!-- operation request element -->
+  <element name="add">
+   <complexType>
+    <sequence>
+     <element name="a" type="xsd:double" minOccurs="1" maxOccurs="1"/><!-- calc__add::a -->
+     <element name="b" type="xsd:double" minOccurs="1" maxOccurs="1"/><!-- calc__add::b -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="addResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:double" minOccurs="0" maxOccurs="1" nillable="true"/><!-- calc__add::result -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation request element -->
+  <element name="sub">
+   <complexType>
+    <sequence>
+     <element name="a" type="xsd:double" minOccurs="1" maxOccurs="1"/><!-- calc__sub::a -->
+     <element name="b" type="xsd:double" minOccurs="1" maxOccurs="1"/><!-- calc__sub::b -->
+    </sequence>
+   </complexType>
+  </element>
+  <!-- operation response element -->
+  <element name="subResponse">
+   <complexType>
+    <sequence>
+     <element name="result" type="xsd:double" minOccurs="0" maxOccurs="1" nillable="true"/><!-- calc__sub::result -->
+    </sequence>
+   </complexType>
+  </element>
+ </schema>
+
+</types>
+
+<message name="addRequest">
+ <part name="Body" element="calc:add"/><!-- calc__add::calc__add -->
+</message>
+
+<message name="addResponse">
+ <part name="Body" element="calc:addResponse"/>
+</message>
+
+<message name="subRequest">
+ <part name="Body" element="calc:sub"/><!-- calc__sub::calc__sub -->
+</message>
+
+<message name="subResponse">
+ <part name="Body" element="calc:subResponse"/>
+</message>
+
+<portType name="calcPortType">
+ <operation name="add">
+  <documentation>Service definition of function calc__add</documentation>
+  <input message="tns:addRequest"/>
+  <output message="tns:addResponse"/>
+ </operation>
+ <operation name="sub">
+  <documentation>Service definition of function calc__sub</documentation>
+  <input message="tns:subRequest"/>
+  <output message="tns:subResponse"/>
+ </operation>
+</portType>
+
+<binding name="calc" type="tns:calcPortType">
+ <SOAP:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+ <operation name="add">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="Body" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="Body" use="literal"/>
+  </output>
+ </operation>
+ <operation name="sub">
+  <SOAP:operation soapAction=""/>
+  <input>
+     <SOAP:body parts="Body" use="literal"/>
+  </input>
+  <output>
+     <SOAP:body parts="Body" use="literal"/>
+  </output>
+ </operation>
+</binding>
+
+<service name="calc">
+ <documentation>gSOAP 2.8.18 generated service definition</documentation>
+ <port name="calc" binding="tns:calc">
+  <SOAP:address location="http://localhost:18083/calc/"/>
+ </port>
+</service>
+
+</definitions>

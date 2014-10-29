@@ -1,14 +1,24 @@
-#include "calcH.h" 
+#include "annuaireH.h" 
+#include "annuaire.nsmap"
+
 #include <math.h>
-#include "calc.nsmap"
+#include <string.h>
+
+#define MAX_SIZE 420
 
 static int port = 18083;
-static char hostname[] = "chargers";
+static char hostname[] = "localhost";
+
+static entry annuaire[MAX_SIZE];
+static int size;
 
 int main(int argc, char**argv)
 { 
+
+
    struct soap soap; 
    int m, s;
+   size = 0;
    soap_init(&soap); 
    m = soap_bind(&soap, hostname, port, 100); 
    if (m < 0) 
@@ -37,33 +47,32 @@ int main(int argc, char**argv)
    soap_done(&soap);
 } 
 
-int calc__add(struct soap *soap, double a, double b, double*result) 
+int annuaire__add(struct soap *soap, entry e, int*result) 
 { 
-   *result = a + b; 
+   //printf("\nAdding new entry: %s ...\n", e.name);
+   if (size < MAX_SIZE){
+      annuaire[size].name = malloc((1+strlen(e.name))*sizeof(char));
+      strcpy(annuaire[size].name, e.name);
+      size++;
+      *result = 1;
+   }
+   else
+      *result = 0;
    return SOAP_OK; 
 } 
 
-int calc__sub(struct soap *soap, double a, double b, double*result) 
+int annuaire__search(struct soap *soap, entry e, int*result) 
 { 
-   *result = a - b; 
-   return SOAP_OK; 
-} 
-
-
-int calc__mul(struct soap *soap, double a, double b, double*result) 
-{ 
-   *result = a * b; 
-   return SOAP_OK; 
-} 
-
-int calc__div(struct soap *soap, double a, double b, double*result) 
-{ 
-   *result = a / b; 
-   return SOAP_OK; 
-} 
-
-int calc__sqrt(struct soap *soap, double a, double*result) 
-{ 
-   *result = sqrt(a); 
+   int i;
+   *result = 0;
+   for (i = 0; i < size; ++i)
+   {
+      //printf("\nSearching... current entry: %s ...\n", annuaire[i].name);     
+      if(strcmp(e.name, annuaire[i].name) == 0)
+      {
+         *result = 1;
+         break;
+      }
+   }
    return SOAP_OK; 
 } 

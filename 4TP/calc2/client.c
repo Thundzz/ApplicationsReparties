@@ -1,7 +1,7 @@
 #include "calcH.h"
 #include "calc.nsmap"
 
-static char server[] = "http://localhost:18083/";
+static char server[] = "http://broncos:18083/";
 
 int main(int argc, char**argv) 
 { 
@@ -16,7 +16,7 @@ int main(int argc, char**argv)
      {
        printf("mul = %g\n", sum);
      }
-   if (soap_call_calc__div(&soap, server, NULL, 840.0, 2.0, &sum) == SOAP_OK)
+   if (soap_call_calc__div(&soap, server, NULL, 840.0, 0.0, &sum) == SOAP_OK)
      {
        printf("div = %g\n", sum);
      }
